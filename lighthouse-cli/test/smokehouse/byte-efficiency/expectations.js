@@ -5,6 +5,9 @@
  */
 'use strict';
 
+// TODO(phulce): assert more score values once Lantern can tie more trace events back to images.
+// See https://github.com/GoogleChrome/lighthouse/issues/4600.
+
 /**
  * Expected Lighthouse audit values for byte efficiency tests
  */
@@ -14,7 +17,6 @@ module.exports = [
     url: 'http://localhost:10200/byte-efficiency/tester.html',
     audits: {
       'unminified-css': {
-        score: '<100',
         extendedInfo: {
           value: {
             wastedKb: 17,
@@ -28,7 +30,7 @@ module.exports = [
         score: '<100',
         extendedInfo: {
           value: {
-            wastedKb: 14,
+            wastedKb: 45,
             results: {
               length: 1,
             },
@@ -36,7 +38,6 @@ module.exports = [
         },
       },
       'unused-css-rules': {
-        score: '<100',
         extendedInfo: {
           value: {
             wastedKb: 39,
@@ -50,8 +51,7 @@ module.exports = [
         score: '<100',
         extendedInfo: {
           value: {
-            // TODO(phulce): Update this to =32 once block-level coverage tracking hits stable
-            wastedKb: '>=18',
+            wastedKb: '>=25',
             results: {
               length: 2,
             },
@@ -59,7 +59,7 @@ module.exports = [
         },
       },
       'offscreen-images': {
-        score: '<100',
+        score: '<100', // big enough savings to interfere with download of script.js
         extendedInfo: {
           value: {
             results: [
@@ -77,7 +77,7 @@ module.exports = [
         },
       },
       'uses-webp-images': {
-        score: '<100',
+        score: '<100', // big enough savings to interfere with download of script.js
         extendedInfo: {
           value: {
             results: {
@@ -87,7 +87,6 @@ module.exports = [
         },
       },
       'uses-optimized-images': {
-        score: '<100',
         extendedInfo: {
           value: {
             results: {
@@ -97,7 +96,6 @@ module.exports = [
         },
       },
       'uses-responsive-images': {
-        score: '<100',
         extendedInfo: {
           value: {
             results: {
