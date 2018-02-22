@@ -128,7 +128,6 @@ class UnusedBytes extends Audit {
     });
 
     const simulationAfterChanges = new LoadSimulator(graph).simulate();
-    // console.log({simulationBeforeChanges, simulationAfterChanges})
     // Restore the original transfer size after we've done our simulation
     graph.traverse(node => {
       if (node.type !== 'network') return;
