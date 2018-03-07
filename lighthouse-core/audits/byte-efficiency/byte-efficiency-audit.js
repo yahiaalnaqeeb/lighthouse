@@ -105,7 +105,10 @@ class UnusedBytes extends Audit {
   }
 
   /**
-   * @param {!Array<{url: string, wastedByte: number}>} results
+   * Computes the estimated effect of all the byte savings on the last long task
+   * in the provided graph.
+   *
+   * @param {!Array<{url: string, wastedBytes: number}>} results The array of byte savings results per resource
    * @param {!Node} graph
    * @return {number}
    */

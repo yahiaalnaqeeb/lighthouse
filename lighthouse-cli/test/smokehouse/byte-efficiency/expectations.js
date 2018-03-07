@@ -31,6 +31,7 @@ module.exports = [
         extendedInfo: {
           value: {
             wastedKb: 45,
+            wastedMs: '>500',
             results: {
               length: 1,
             },
@@ -52,6 +53,7 @@ module.exports = [
         extendedInfo: {
           value: {
             wastedKb: '>=25',
+            wastedMs: '>500',
             results: {
               length: 2,
             },
@@ -80,6 +82,8 @@ module.exports = [
         score: '<100', // big enough savings to interfere with download of script.js
         extendedInfo: {
           value: {
+            wastedKb: '>60',
+            wastedMs: '>200',
             results: {
               length: 4,
             },
@@ -89,6 +93,7 @@ module.exports = [
       'uses-optimized-images': {
         extendedInfo: {
           value: {
+            wastedKb: '>10',
             results: {
               length: 1,
             },
@@ -98,6 +103,8 @@ module.exports = [
       'uses-responsive-images': {
         extendedInfo: {
           value: {
+            wastedKb: '>50',
+            wastedMs: '>100',
             results: {
               length: 3,
             },
