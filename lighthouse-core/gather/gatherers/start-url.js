@@ -10,72 +10,72 @@ const URL = require('../../lib/url-shim');
 const manifestParser = require('../../lib/manifest-parser');
 
 class StartUrl extends Gatherer {
-  constructor() {
-    super();
-
-    this.startUrl = null;
-    this.err = null;
-  }
-
   executeFetchRequest(driver, url) {
     return driver.evaluateAsync(
-      `fetch('${url}')
-        .then(response => response.status)
-        .catch(err => ({fetchFailed: true, message: err.message}))`
+      `fetch('${url}')`
     );
   }
 
-  pass(options) {
-    return options.driver.getAppManifest()
-      .then(response => {
-        return response && manifestParser(response.data, response.url, options.url);
-      })
+  afterPass(options) {
+    const msgWithExtraDebugString = msg => this.debugString ? `${msg}: ${this.debugString}` : msg;
+    return options.driver.goOnline(options)
+      .then(() => options.driver.getAppManifest())
+      .then(response => response && manifestParser(response.data, response.url, options.url))
       .then(manifest => {
         if (!manifest || !manifest.value) {
           const detailedMsg = manifest && manifest.debugString;
-          this.debugString = detailedMsg ?
-              `Error fetching web app manifest: ${detailedMsg}` :
-              `No usable web app manifest found on page ${options.url}`;
-          return;
+          console.log(manifest);
+
+          if (detailedMsg) {
+            const message = `Error fetching web app manifest: ${detailedMsg}`;
+            return {
+              statusCode: -1,
+              debugString: msgWithExtraDebugString(message),
+            };
+          } else {
+            const message = `No usable web app manifest found on page ${options.url}`;
+            return {
+              statusCode: -1,
+              debugString: msgWithExtraDebugString(message),
+            };
+          }
         }
 
         if (manifest.value.start_url.debugString) {
           // Even if the start URL had an error, the browser will still supply a fallback URL.
           // Therefore, we only set the debugString here and continue with the fetch.
-          this.debugString = manifest.value.start_url.debugString;
-        }
-
-        this.startUrl = manifest.value.start_url.value;
-        return this.executeFetchRequest(options.driver, this.startUrl);
-      });
-  }
-
-  afterPass(options, tracingData) {
-    const networkRecords = tracingData.networkRecords;
-    const navigationRecord = networkRecords.filter(record => {
-      return URL.equalWithExcludedFragments(record._url, this.startUrl) &&
-        record._fetchedViaServiceWorker;
-    }).pop(); // Take the last record that matches.
-
-    const msgWithExtraDebugString = msg => this.debugString ? `${msg}: ${this.debugString}` : msg;
-    return options.driver.goOnline(options)
-      .then(_ => {
-        if (!this.startUrl) {
           return {
             statusCode: -1,
-            debugString: msgWithExtraDebugString('No start URL to fetch'),
-          };
-        } else if (!navigationRecord) {
-          return {
-            statusCode: -1,
-            debugString: msgWithExtraDebugString('Unable to fetch start URL via service worker'),
-          };
-        } else {
-          return {
-            statusCode: navigationRecord.statusCode,
-            debugString: this.debugString,
+            debugString: msgWithExtraDebugString(manifest.value.start_url.debugString),
           };
         }
+
+        const startUrl = manifest.value.start_url.value;
+
+        return (new Promise(resolve => {
+          options.driver.on('Network.responseReceived', function responseReceived({response}) {
+            console.log(response);
+            if (response.url === startUrl) {
+              options.driver.off('Network.responseReceived', responseReceived);
+
+              resolve({
+                statusCode: response.status,
+                debugString: '',
+              });
+            }
+          });
+
+          options.driver.goOffline(options)
+            .then(() => this.executeFetchRequest(options.driver, startUrl))
+            .then(() => options.driver.goOnline(options))
+            .catch((err) => {
+              console.log(err);
+              resolve({
+                statusCode: -1,
+                debugString: msgWithExtraDebugString('Unable to fetch start URL via service worker'),
+              });
+            });
+        }));
       });
   }
 }

@@ -21,9 +21,12 @@ const mockDriver = {
   off() {},
 };
 
-const wrapSendCommand = (mockDriver, url) => {
+const wrapSendCommand = (mockDriver, url, status = 200) => {
   mockDriver = Object.assign({}, mockDriver);
   mockDriver.evaluateAsync = () => Promise.resolve();
+  mockDriver.on = (name, cb) => {
+    cb({response: {status, url}});
+  };
 
   mockDriver.getAppManifest = () => {
     return Promise.resolve({
@@ -42,18 +45,16 @@ describe('Start-url gatherer', () => {
     const startUrlGathererWithQueryString = new StartUrlGatherer();
     const options = {
       url: 'https://do-not-match.com/',
-      driver: wrapSendCommand(mockDriver, 'https://do-not-match.com/'),
+      driver: wrapSendCommand(mockDriver, 'https://do-not-match.com/', -1),
     };
     const optionsWithQueryString = {
       url: 'https://ifixit-pwa.appspot.com/?history',
-      driver: wrapSendCommand(mockDriver, 'https://ifixit-pwa.appspot.com/?history'),
+      driver: wrapSendCommand(mockDriver, 'https://ifixit-pwa.appspot.com/?history', -1),
     };
 
     return Promise.all([
-      startUrlGatherer.pass(options)
-        .then(_ => startUrlGatherer.afterPass(options, tracingData)),
-      startUrlGathererWithQueryString.pass(optionsWithQueryString)
-        .then(_ => startUrlGathererWithQueryString.afterPass(optionsWithQueryString, tracingData)),
+      startUrlGatherer.afterPass(options),
+      startUrlGathererWithQueryString.afterPass(optionsWithQueryString),
     ]).then(([artifact, artifactWithQueryString]) => {
       assert.equal(artifact.statusCode, -1);
       assert.ok(artifact.debugString, 'did not set debug string');
@@ -75,10 +76,8 @@ describe('Start-url gatherer', () => {
     };
 
     return Promise.all([
-      startUrlGatherer.pass(options)
-        .then(_ => startUrlGatherer.afterPass(options, tracingData)),
-      startUrlGathererWithFragment.pass(optionsWithQueryString)
-        .then(_ => startUrlGathererWithFragment.afterPass(optionsWithQueryString, tracingData)),
+      startUrlGatherer.afterPass(options, tracingData),
+      startUrlGathererWithFragment.afterPass(optionsWithQueryString, tracingData),
     ]).then(([artifact, artifactWithFragment]) => {
       assert.equal(artifact.statusCode, 200);
       assert.equal(artifactWithFragment.statusCode, 200);
@@ -92,8 +91,7 @@ describe('Start-url gatherer', () => {
       driver: wrapSendCommand(mockDriver, ''),
     };
 
-    return startUrlGatherer.pass(options)
-      .then(_ => startUrlGatherer.afterPass(options, tracingData))
+    return startUrlGatherer.afterPass(options, tracingData)
       .then(artifact => {
         assert.equal(artifact.debugString, 'ERROR: start_url string empty');
       });
@@ -106,8 +104,7 @@ describe('Start-url gatherer', () => {
       driver: wrapSendCommand(mockDriver, 'https://not-same-origin.com/'),
     };
 
-    return startUrlGatherer.pass(options)
-      .then(_ => startUrlGatherer.afterPass(options, tracingData))
+    return startUrlGatherer.afterPass(options, tracingData)
       .then(artifact => {
         assert.equal(artifact.debugString, 'ERROR: start_url must be same-origin as document');
       });
