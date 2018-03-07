@@ -1,7 +1,7 @@
 {
   "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3358.0 Safari/537.36",
   "lighthouseVersion": "2.9.1",
-  "generatedTime": "2018-03-03T05:21:52.744Z",
+  "generatedTime": "2018-03-07T23:35:24.063Z",
   "initialUrl": "http://localhost:10200/dobetterweb/dbw_tester.html",
   "url": "http://localhost:10200/dobetterweb/dbw_tester.html",
   "runWarnings": [],
@@ -64,21 +64,21 @@
     },
     "viewport": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "debugString": "",
       "scoreDisplayMode": "binary",
       "name": "viewport",
-      "description": "Does not have a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
+      "description": "Has a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
       "helpText": "Add a viewport meta tag to optimize your app for mobile screens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/has-viewport-meta-tag)."
     },
     "without-javascript": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "name": "without-javascript",
-      "description": "Does not provide fallback content when JavaScript is not available",
+      "description": "Contains some content when JavaScript is not available",
       "helpText": "Your app should display some content when JavaScript is disabled, even if it's just a warning to the user that JavaScript is required to use the app. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/no-js)."
     },
     "first-meaningful-paint": {
@@ -111,7 +111,7 @@
     },
     "load-fast-enough-for-pwa": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "extendedInfo": {
         "value": {
@@ -132,7 +132,7 @@
       },
       "scoreDisplayMode": "binary",
       "name": "load-fast-enough-for-pwa",
-      "description": "Page load is not fast enough on 3G",
+      "description": "Page load is fast enough on 3G",
       "helpText": "A fast page load over a 3G network ensures a good mobile user experience. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/fast-3g)."
     },
     "speed-index-metric": {
@@ -764,7 +764,7 @@
       },
       "scoreDisplayMode": "numeric",
       "name": "redirects",
-      "description": "Has multiple page redirects",
+      "description": "Avoids page redirects",
       "helpText": "Redirects introduce additional delays before the page can be loaded. [Learn more](https://developers.google.com/speed/docs/insights/AvoidRedirects).",
       "details": {
         "type": "table",
@@ -860,12 +860,12 @@
     },
     "content-width": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "debugString": "",
       "scoreDisplayMode": "binary",
       "name": "content-width",
-      "description": "Content is not sized correctly for the viewport",
+      "description": "Content is sized correctly for the viewport",
       "helpText": "If the width of your app's content doesn't match the width of the viewport, your app might not be optimized for mobile screens. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/content-sized-correctly-for-viewport)."
     },
     "image-aspect-ratio": {
@@ -1128,7 +1128,7 @@
       },
       "scoreDisplayMode": "binary",
       "name": "bootup-time",
-      "description": "JavaScript boot-up time is too high",
+      "description": "JavaScript boot-up time",
       "helpText": "Consider reducing the time spent parsing, compiling, and executing JS. You may find delivering smaller JS payloads helps with this. [Learn more](https://developers.google.com/web/lighthouse/audits/bootup).",
       "details": {
         "type": "table",
@@ -1197,11 +1197,11 @@
     },
     "font-display": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "name": "font-display",
-      "description": "Avoid invisible text while webfonts are loading",
+      "description": "All text remains visible during webfont loads",
       "helpText": "Leverage the font-display CSS feature to ensure text is user-visible while webfonts are loading. [Learn more](https://developers.google.com/web/updates/2016/02/font-display).",
       "details": {
         "type": "table",
@@ -1656,12 +1656,12 @@
     },
     "bypass": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "extendedInfo": {},
       "scoreDisplayMode": "binary",
       "name": "bypass",
-      "description": "The page does not contain a heading, skip link, or landmark region",
+      "description": "The page contains a heading, skip link, or landmark region",
       "helpText": "Adding ways to bypass repetitive content lets keyboard users navigate the page more efficiently. [Learn more](https://dequeuniversity.com/rules/axe/2.2/bypass?application=lighthouse).",
       "details": {
         "type": "list",
@@ -1762,12 +1762,12 @@
     },
     "document-title": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "extendedInfo": {},
       "scoreDisplayMode": "binary",
       "name": "document-title",
-      "description": "Document doesn't have a `<title>` element",
+      "description": "Document has a `<title>` element",
       "helpText": "The title gives screen reader users an overview of the page, and search engine users rely on it heavily to determine if a page is relevant to their search. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/title).",
       "details": {
         "type": "list",
@@ -1780,12 +1780,12 @@
     },
     "duplicate-id": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "extendedInfo": {},
       "scoreDisplayMode": "binary",
       "name": "duplicate-id",
-      "description": "`[id]` attributes on the page are not unique",
+      "description": "`[id]` attributes on the page are unique",
       "helpText": "The value of an id attribute must be unique to prevent other instances from being overlooked by assistive technologies. [Learn more](https://dequeuniversity.com/rules/axe/2.2/duplicate-id?application=lighthouse).",
       "details": {
         "type": "list",
@@ -2164,12 +2164,12 @@
     },
     "meta-viewport": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "extendedInfo": {},
       "scoreDisplayMode": "binary",
       "name": "meta-viewport",
-      "description": "`[user-scalable=\"no\"]` is used in the `<meta name=\"viewport\">` element or the `[maximum-scale]` attribute is less than 5.",
+      "description": "`[user-scalable=\"no\"]` is not used in the `<meta name=\"viewport\">` element and the `[maximum-scale]` attribute is not less than 5.",
       "helpText": "Disabling zooming is problematic for users with low vision who rely on screen magnification to properly see the contents of a web page. [Learn more](https://dequeuniversity.com/rules/axe/2.2/meta-viewport?application=lighthouse).",
       "details": {
         "type": "list",
@@ -2650,7 +2650,7 @@
       },
       "scoreDisplayMode": "numeric",
       "name": "total-byte-weight",
-      "description": "Has enormous network payloads",
+      "description": "Avoids enormous network payloads",
       "helpText": "Large network payloads cost users real money and are highly correlated with long load times. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/network-payloads).",
       "details": {
         "type": "table",
@@ -3105,7 +3105,7 @@
       },
       "scoreDisplayMode": "numeric",
       "name": "dom-size",
-      "description": "Uses an excessive DOM size",
+      "description": "Avoids an excessive DOM size",
       "helpText": "Browser engineers recommend pages contain fewer than ~1,500 DOM nodes. The sweet spot is a tree depth < 32 elements and fewer than 60 children/parent element. A large DOM can increase memory usage, cause longer [style calculations](https://developers.google.com/web/fundamentals/performance/rendering/reduce-the-scope-and-complexity-of-style-calculations), and produce costly [layout reflows](https://developers.google.com/speed/articles/reflow). [Learn more](https://developers.google.com/web/fundamentals/performance/rendering/).",
       "details": {
         "type": "cards",
@@ -4429,20 +4429,20 @@
     },
     "http-status-code": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "name": "http-status-code",
-      "description": "Page has unsuccessful HTTP status code",
+      "description": "Page has successful HTTP status code",
       "helpText": "Pages with unsuccessful HTTP status codes may not be indexed properly. [Learn more](https://developers.google.com/web/tools/lighthouse/audits/successful-http-code)."
     },
     "font-size": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "name": "font-size",
-      "description": "Document doesn't use legible font sizes",
+      "description": "Document uses legible font sizes",
       "helpText": "Font sizes less than 12px are too small to be legible and require mobile visitors to “pinch to zoom” in order to read. Strive to have >60% of page text ≥12px. [Learn more](https://developers.google.com/web/fundamentals/design-and-ux/responsive/#optimize_text_for_reading).",
       "details": {
         "type": "table",
@@ -4480,11 +4480,11 @@
     },
     "link-text": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "name": "link-text",
-      "description": "Links do not have descriptive text",
+      "description": "Links have descriptive text",
       "helpText": "Descriptive link text helps search engines understand your content. [Learn more](https://webmasters.googleblog.com/2008/10/importance-of-link-architecture.html).",
       "details": {
         "type": "table",
@@ -4506,11 +4506,11 @@
     },
     "hreflang": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "name": "hreflang",
-      "description": "Document doesn't have a valid `hreflang`",
+      "description": "Document has a valid `hreflang`",
       "helpText": "hreflang allows crawlers to discover alternate translations of the page content. [Learn more](https://support.google.com/webmasters/answer/189077).",
       "details": {
         "type": "table",
@@ -4520,11 +4520,11 @@
     },
     "plugins": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "name": "plugins",
-      "description": "Document uses plugins",
+      "description": "Document avoids plugins",
       "helpText": "Most mobile devices do not support plugins, and many desktop browsers restrict them.",
       "details": {
         "type": "table",
@@ -4534,13 +4534,13 @@
     },
     "canonical": {
       "score": 1,
-      "displayValue": "",
+      "displayValue": "true",
       "rawValue": true,
       "scoreDisplayMode": "binary",
       "informative": true,
       "notApplicable": true,
       "name": "canonical",
-      "description": "Document does not have a valid `rel=canonical`",
+      "description": "Document has a valid `rel=canonical`",
       "helpText": "Canonical links suggest which URL to show in search results. Read more in [Use canonical URLs](https://support.google.com/webmasters/answer/139066)."
     },
     "mobile-friendly": {
@@ -5246,6 +5246,6 @@
     }
   },
   "timing": {
-    "total": 1081
+    "total": 1082
   }
 }
