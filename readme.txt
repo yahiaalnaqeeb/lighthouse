@@ -1,4 +1,6 @@
 
+add my phone to readme from git-hub site
+
 add hie to the top of readme file 
 
 
